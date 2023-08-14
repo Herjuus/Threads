@@ -8,6 +8,7 @@ import {
   } from "@/components/ui/dialog"
 
 import { Button } from "./ui/button"
+import RegisterForm from "./registerForm"
 
 export default function SignInButton() {
     return(
@@ -21,7 +22,7 @@ export default function SignInButton() {
                 <DialogHeader>
                     <DialogTitle>Sign In</DialogTitle>
                 </DialogHeader>
-                
+                <RegisterForm/>
             </DialogContent>
         </Dialog>
     )

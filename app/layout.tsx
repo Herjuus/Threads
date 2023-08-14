@@ -2,6 +2,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={`${inter.className} flex justify-center`}>
         <main className='w-full mx-2 sm:mx-0 sm:w-11/12 md:w-5/6 lg:w-4/6'>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+            <Toaster/>
             {children}
           </ThemeProvider>
         </main>
