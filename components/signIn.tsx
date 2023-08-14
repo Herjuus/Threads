@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Dialog,
     DialogContent,
@@ -9,8 +11,11 @@ import {
 
 import { Button } from "./ui/button"
 import RegisterForm from "./registerForm"
+import { useState } from "react";
 
 export default function SignInButton() {
+    const [isRegister, setIsRegister] = useState(false);
+
     return(
         <Dialog>
             <DialogTrigger>
@@ -18,12 +23,21 @@ export default function SignInButton() {
                     Sign in
                 </Button>
             </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Sign In</DialogTitle>
-                </DialogHeader>
-                <RegisterForm/>
-            </DialogContent>
+            {!isRegister ? (
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Sign In</DialogTitle>
+                    </DialogHeader>
+                    <RegisterForm/>
+                </DialogContent>
+            ) : (
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Register</DialogTitle>
+                    </DialogHeader>
+                    <RegisterForm/>
+                </DialogContent>
+            )}
         </Dialog>
     )
 }

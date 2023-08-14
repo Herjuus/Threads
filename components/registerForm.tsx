@@ -10,6 +10,7 @@ import { useToast } from "./ui/use-toast";
 import axios from "axios";
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation";
+import { handleSignin } from "@/lib/authActions";
 
 
 const registerSchema = z.object({
@@ -62,7 +63,7 @@ export default function RegisterForm() {
             signIn('credentials', {
                 email: values.email,
                 password: values.password,
-                redirect: false,
+                redirect: true,
             })
             .then((callback) => {
                 if (callback?.ok) {
@@ -81,12 +82,12 @@ export default function RegisterForm() {
                 }
             })
         })
-        // .catch((err) => {
-        //     toast({
-        //         title: "There was a problem when registering.",
-        //         description: "Email and/or username already in use.",
-        //     })
-        // })
+        .catch((err) => {
+            toast({
+                title: "Email and/or username already in use.",
+                description: "There was a problem when registering.",
+            })
+        })
     }
 
     return(
