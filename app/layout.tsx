@@ -6,8 +6,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Forums',
-  description: 'Forums app Herjus',
+  title: 'Threads | Home',
+  description: '',
 }
 
 export default function RootLayout({
@@ -17,10 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} p-4`}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          {children}
-        </ThemeProvider>
+      <body className={`${inter.className} flex justify-center`}>
+        <main className='w-full mx-2 sm:mx-0 sm:w-11/12 md:w-5/6 lg:w-4/6'>
+          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+            {children}
+          </ThemeProvider>
+        </main>
       </body>
     </html>
   )
