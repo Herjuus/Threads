@@ -10,7 +10,6 @@ import { useToast } from "./ui/use-toast";
 import axios from "axios";
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation";
-import { handleSignin } from "@/lib/authActions";
 
 
 const registerSchema = z.object({
@@ -27,10 +26,14 @@ const registerSchema = z.object({
     }).max(64, {
         message: "Password cant contain more than 64 character(s)"
     }),
-    confirmPassword: z.string().min(6).max(64),
+    confirmPassword: z.string().min(6, {
+        message: "Password must contain at least 6 character(s)"
+    }).max(64, {
+        message: "Password cant contain more than 64 character(s)"
+    }),
 })
 
-export default function RegisterForm() {
+export default function RegisterForm({ toggleFunction }: any) {
     const { toast } = useToast();
 
     const router = useRouter();
@@ -150,6 +153,7 @@ export default function RegisterForm() {
                     >
                 </FormField>
                 <Button type="submit">Submit</Button>
+                <Button onClick={() => toggleFunction()} variant={"link"}>Already a member? Sign in.</Button>
             </form>
         </Form>
     )

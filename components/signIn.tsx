@@ -12,9 +12,14 @@ import {
 import { Button } from "./ui/button"
 import RegisterForm from "./registerForm"
 import { useState } from "react";
+import SigninForm from "./signinForm";
 
 export default function SignInButton() {
     const [isRegister, setIsRegister] = useState(false);
+
+    function toggleRegister() {
+        setIsRegister(!isRegister);
+    }
 
     return(
         <Dialog>
@@ -28,14 +33,14 @@ export default function SignInButton() {
                     <DialogHeader>
                         <DialogTitle>Sign In</DialogTitle>
                     </DialogHeader>
-                    <RegisterForm/>
+                    <SigninForm toggleFunction={toggleRegister}/>
                 </DialogContent>
             ) : (
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Register</DialogTitle>
                     </DialogHeader>
-                    <RegisterForm/>
+                    <RegisterForm toggleFunction={toggleRegister}/>
                 </DialogContent>
             )}
         </Dialog>
