@@ -39,7 +39,7 @@ export default function SigninForm({ toggleFunction }: any) {
         signIn('credentials', {
             email: values.email,
             password: values.password,
-            redirect: true,
+            redirect: false,
         })
         .then((callback) => {
             if (callback?.ok) {

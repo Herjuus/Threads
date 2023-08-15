@@ -24,7 +24,7 @@ export default function SignInButton() {
     return(
         <Dialog>
             <DialogTrigger>
-                <Button variant={"secondary"}>
+                <Button variant={"outline"}>
                     Sign in
                 </Button>
             </DialogTrigger>
