@@ -1,9 +1,10 @@
 import { ModeToggle } from "./ModeToggle";
 import getCurrentUser from "./actions/getCurrentUser";
 import SignInButton from "./signIn";
-import SignOutButton from "./signOut";
 import Link from "next/link";
 import UserDropdown from "./userDropdown";
+import { Button } from "./ui/button";
+import { Search } from "lucide-react";
 
 export default async function Header(){
     const user = await getCurrentUser();
@@ -14,12 +15,14 @@ export default async function Header(){
             <div className="flex items-center gap-2">
                 {user ? (
                     <div>
-                        {/* <SignOutButton/> */}
                         <UserDropdown currentUser={user} />
                     </div>
                 ) : (
                     <SignInButton/>
                 )}
+                <Button variant={"outline"} size={"icon"}>
+                    <Search className="h-[1.2rem] w-[1.2rem]"/>
+                </Button>
                 <ModeToggle/>
             </div>
         </div>
