@@ -10,6 +10,7 @@ import {
 import { Button } from "./ui/button";
 import { ChevronDown, LogOut, Settings2, ListPlus, PlusSquare, User } from "lucide-react";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 
 export default function UserDropdown(props: any) {
@@ -20,7 +21,9 @@ export default function UserDropdown(props: any) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
                 <DropdownMenuLabel>Threads</DropdownMenuLabel>
-                <DropdownMenuItem className="gap-1"><User size={15}/>Profile</DropdownMenuItem>
+                <Link href={`/u/${props.currentUser.username}`}>
+                    <DropdownMenuItem className="gap-1"><User size={15}/>Profile</DropdownMenuItem>
+                </Link>
                 <DropdownMenuItem className="gap-1"><ListPlus size={15}/>New post</DropdownMenuItem>
                 <DropdownMenuItem className="gap-1"><PlusSquare size={15}/>New thread</DropdownMenuItem>
                 <DropdownMenuLabel>Account</DropdownMenuLabel>
