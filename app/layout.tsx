@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} flex justify-center`}>
         <main className='w-full mx-2 sm:mx-0 sm:w-11/12 md:w-5/6 lg:w-4/6'>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
