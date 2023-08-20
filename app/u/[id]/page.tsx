@@ -23,11 +23,21 @@ export default async function UserPage({ params }: any){
     const user = await getUser(params.id);
 
     return(
-        <div className='flex flex-col'>
-            <span>{user?.username}</span>
-            <span>{user?.email}</span>
-            <span>{user?.hashedPassword}</span>
-            <span>{user?.id}</span>
+        <div>
+            {user ? (
+                <div className='flex flex-col'>
+                    <span>{user?.username}</span>
+                    <span>{user?.email}</span>
+                    <span>{user?.hashedPassword}</span>
+                    <span>{user?.id}</span>
+                </div>
+            ) : (
+                <div className='flex flex-col'>
+                    <span>User "{params.id}" doesn't exist.</span>
+                </div>
+            )}
         </div>
+        
+        
     )
 }
