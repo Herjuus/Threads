@@ -9,7 +9,7 @@ import {
     DialogTrigger,
   } from "@/components/ui/dialog"
 
-import { Button } from "./ui/button"
+import { Button } from "./ui/button";
 import RegisterForm from "./registerForm"
 import { useState } from "react";
 import SigninForm from "./signinForm";
@@ -23,7 +23,7 @@ export default function SignInButton() {
 
     return(
         <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
                 <Button variant={"outline"}>
                     Sign in
                 </Button>
