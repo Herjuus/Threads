@@ -9,9 +9,18 @@ datasource db {
 
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  username String? @unique
-  email String? @unique
-  hashedPassword String?
+  username String @unique
+  email String @unique
+  hashedPassword String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String @db.ObjectId @unique
+}
+
+model Profile {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  username String @unique
+  description String?
+  User User?
 }
