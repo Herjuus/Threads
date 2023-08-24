@@ -14,13 +14,40 @@ model User {
   hashedPassword String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  profile Profile @relation(fields: [profileId], references: [id])
-  profileId String @db.ObjectId @unique
+  description String
+
+  posts Post[]
+
+  joinedThreads Thread[] @relation(fields: [threadId], references: [id])
+  threadId String[] @db.ObjectId
 }
 
-model Profile {
+model Post {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  username String @unique
-  description String?
-  User User?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
+
+  thread Thread? @relation(fields: [threadId], references: [id])
+  threadId String @db.ObjectId
+
+  title String
+  content String
+  imgurl String?
+}
+
+model Thread {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title String
+  description String
+  
+  members User[] @relation(fields: [memberId], references: [id])
+  memberId String[] @db.ObjectId
+  
+  posts Post[]
 }

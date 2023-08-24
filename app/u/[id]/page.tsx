@@ -1,4 +1,10 @@
 import prisma from '@/lib/prismadb';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: `/u/${"Herjus"} | Threads`,
+    description: '',
+}
 
 async function getUser(username: string){
     try{
@@ -27,9 +33,7 @@ export default async function UserPage({ params }: any){
             {user ? (
                 <div className='flex flex-col'>
                     <span>{user?.username}</span>
-                    <span>{user?.email}</span>
-                    <span>{user?.hashedPassword}</span>
-                    <span>{user?.id}</span>
+                    <span>{user?.description}</span>
                 </div>
             ) : (
                 <div className='flex flex-col'>

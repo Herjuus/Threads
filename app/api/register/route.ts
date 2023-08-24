@@ -19,6 +19,7 @@ export async function POST(
             email,
             username,
             hashedPassword,
+            description: "Welcome to my profile."
         }
     })
 

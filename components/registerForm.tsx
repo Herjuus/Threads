@@ -62,7 +62,6 @@ export default function RegisterForm({ toggleFunction }: any) {
             password: values.password,
         })
         .then(() => {
-            console.log("register complete")
             signIn('credentials', {
                 email: values.email,
                 password: values.password,
@@ -70,14 +69,12 @@ export default function RegisterForm({ toggleFunction }: any) {
             })
             .then((callback) => {
                 if (callback?.ok) {
-                    console.log("Logged in")
                     toast({
                         title: "Successfully signed in!"
                     })
                     router.refresh();
                 }
                 if (callback?.error) {
-                    console.log("Wrong credentials")
                     toast({
                         title: "Wrong email/password.",
                         description: "Please try again.",
@@ -87,8 +84,8 @@ export default function RegisterForm({ toggleFunction }: any) {
         })
         .catch((err) => {
             toast({
-                title: "Email and/or username already in use.",
-                description: "There was a problem when registering.",
+                title: "There was a problem while registering.",
+                description: "Check your email and/or username and try again.",
             })
         })
     }
