@@ -1,10 +1,4 @@
 import prisma from '@/lib/prismadb';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-    title: `/u/${"Herjus"} | Threads`,
-    description: '',
-}
 
 async function getUser(username: string){
     try{
