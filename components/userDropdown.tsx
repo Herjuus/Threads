@@ -24,10 +24,16 @@ export default function UserDropdown(props: any) {
                 <Link href={`/u/${props.currentUser.username}`}>
                     <DropdownMenuItem className="gap-1"><User size={15}/>Profile</DropdownMenuItem>
                 </Link>
-                <DropdownMenuItem className="gap-1"><ListPlus size={15}/>New post</DropdownMenuItem>
-                <DropdownMenuItem className="gap-1"><PlusSquare size={15}/>New thread</DropdownMenuItem>
+                <Link href={'/new/post'}>
+                    <DropdownMenuItem className="gap-1"><ListPlus size={15}/>New post</DropdownMenuItem>
+                </Link>
+                <Link href={'/new/thread'}>
+                    <DropdownMenuItem className="gap-1"><PlusSquare size={15}/>New thread</DropdownMenuItem>
+                </Link>
                 <DropdownMenuLabel>Account</DropdownMenuLabel>
-                <DropdownMenuItem className="gap-1"><Settings2 size={15}/>Settings</DropdownMenuItem>
+                <Link href={'/settings'}>
+                    <DropdownMenuItem className="gap-1"><Settings2 size={15}/>Settings</DropdownMenuItem>
+                </Link>
                 <DropdownMenuItem className="gap-1" onClick={() => signOut()}><LogOut size={15}/>Sign out</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
