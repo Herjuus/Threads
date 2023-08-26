@@ -33,7 +33,7 @@ model Post {
   thread Thread? @relation(fields: [threadId], references: [id])
   threadId String @db.ObjectId
 
-  title String
+  title String 
   content String
   imgurl String?
 }
@@ -43,11 +43,11 @@ model Thread {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  title String
+  title String @unique
   description String
   
   members User[] @relation(fields: [memberId], references: [id])
   memberId String[] @db.ObjectId
-  
+
   posts Post[]
 }
