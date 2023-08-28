@@ -1,3 +1,4 @@
+import getCurrentUser from "@/components/actions/getCurrentUser";
 import prisma from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
@@ -8,15 +9,20 @@ export async function POST(
     const {
         title,
         description,
-        user,
     } = body;
+
+    const user = await getCurrentUser()
+
+    if (!user) {
+        return new Error("Not authenticated")
+    }
 
     const thread = await prisma.thread.create({
         data: {
             title,
             description,
             members: {
-                connect: [{ username: user.username }]
+                connect: [{ username: user?.username }]
             }
         }
     });

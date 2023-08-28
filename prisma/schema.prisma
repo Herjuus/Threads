@@ -27,10 +27,10 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  author User @relation(fields: [authorId], references: [id])
+  author User @relation(fields: [authorId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   authorId String @db.ObjectId
 
-  thread Thread? @relation(fields: [threadId], references: [id])
+  thread Thread @relation(fields: [threadId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   threadId String @db.ObjectId
 
   title String 
