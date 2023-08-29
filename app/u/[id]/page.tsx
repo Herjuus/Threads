@@ -25,7 +25,7 @@ export default async function UserPage({ params }: any){
     const threads = await prisma.thread.findMany({
         where: {
             members: {
-                some: {
+                every: {
                     username: user?.username
                 }
             }
