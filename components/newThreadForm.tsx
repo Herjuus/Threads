@@ -103,6 +103,5 @@ export default function NewThreadForm(props: any){
                 </DialogFooter>
             </form>
         </Form>
-        
     )
 }
