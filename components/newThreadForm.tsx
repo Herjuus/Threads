@@ -3,6 +3,13 @@
 import { Button } from "./ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { DialogFooter } from "./ui/dialog";
+import { z } from "zod";
+
+const threadSchema = z.object({
+    title: z.string().min(3).max(16).trim(),
+    description: z.string().min(6).max(64),
+})
 
 export default function NewThreadForm(){
     const { push } = useRouter();
@@ -19,8 +26,10 @@ export default function NewThreadForm(){
     }
 
     return(
-        <Button onClick={MakeThread}>
-            Make new thread
-        </Button>
+        <DialogFooter>
+            <Button onClick={MakeThread}>
+                Create
+            </Button>
+        </DialogFooter>
     )
 }

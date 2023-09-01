@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 
 const signinSchema = z.object({
-    email: z.string().email({
+    email: z.string().toLowerCase().email({
         message: "Please enter a valid email"
     }),
     password: z.string().min(6, {

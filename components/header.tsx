@@ -4,7 +4,7 @@ import SignInButton from "./signIn";
 import Link from "next/link";
 import UserDropdown from "./userDropdown";
 import { Button } from "./ui/button";
-import { Search } from "lucide-react";
+import { Search, PlusSquare } from "lucide-react";
 
 export default async function Header(){
     const user = await getCurrentUser();
@@ -14,7 +14,7 @@ export default async function Header(){
             <Link href={"/"} className="text-3xl font-light">THREADS<span className="text-sm font-bold">BETA</span></Link>
             <div className="flex items-center gap-2">
                 {user ? (
-                    <div>
+                    <div className="flex items-center gap-2">
                         <UserDropdown currentUser={user} />
                     </div>
                 ) : (
