@@ -13,12 +13,19 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { DialogTrigger, Dialog, DialogContent, DialogTitle, DialogHeader, DialogDescription, DialogFooter } from "./ui/dialog";
 import NewThreadForm from "./newThreadForm";
+import { useState } from "react";
 
 
 
 export default function UserDropdown(props: any) {
+    const [open, setOpen] = useState(false);
+
+    function closeDialog(){
+        setOpen(false);
+    }
+
     return(
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button className="text-base" variant={"outline"}>{props.currentUser.username}<ChevronDown size={15}/></Button>
@@ -47,7 +54,7 @@ export default function UserDropdown(props: any) {
                         Customize your new thread here
                     </DialogDescription>
                 </DialogHeader>
-                <NewThreadForm/>
+                <NewThreadForm closeFunction={closeDialog}/>
             </DialogContent>
         </Dialog>
     )

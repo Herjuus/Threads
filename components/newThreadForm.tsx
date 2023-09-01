@@ -24,7 +24,8 @@ const threadSchema = z.object({
     }),
 })
 
-export default function NewThreadForm(){
+export default function NewThreadForm(props: any){
+
     const { toast } = useToast();
 
     const router = useRouter();
@@ -44,6 +45,7 @@ export default function NewThreadForm(){
                 description: values.description,
             })
             .then(() => {
+                props.closeFunction();
                 router.refresh();
                 router.replace(`/t/${values.title}`)
                 toast({
