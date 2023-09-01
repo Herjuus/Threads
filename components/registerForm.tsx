@@ -105,8 +105,7 @@ export default function RegisterForm({ toggleFunction }: any) {
                             <FormMessage />
                         </FormItem>
                     )}
-                    >
-                </FormField>
+                    />
                 <FormField
                     control={form.control}
                     name="email"
@@ -119,8 +118,7 @@ export default function RegisterForm({ toggleFunction }: any) {
                             <FormMessage />
                         </FormItem>
                     )}
-                    >
-                </FormField>
+                    />
                 <FormField
                     control={form.control}
                     name="password"
@@ -133,8 +131,7 @@ export default function RegisterForm({ toggleFunction }: any) {
                             <FormMessage />
                         </FormItem>
                     )}
-                    >
-                </FormField>
+                    />
                 <FormField
                     control={form.control}
                     name="confirmPassword"
@@ -147,8 +144,7 @@ export default function RegisterForm({ toggleFunction }: any) {
                             <FormMessage />
                         </FormItem>
                     )}
-                    >
-                </FormField>
+                    />
                 <Button type="submit">Submit</Button>
                 <Button onClick={() => toggleFunction()} variant={"link"}>Already a member? Sign in.</Button>
             </form>

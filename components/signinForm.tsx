@@ -50,8 +50,8 @@ export default function SigninForm({ toggleFunction }: any) {
             }
             if (callback?.error) {
                 toast({
-                    title: "Wrong email/password.",
-                    description: "Please try again.",
+                    title: "There was a problem while signing in.",
+                    description: "Check your email and/or username and try again.",
                 })
             }
         })
@@ -72,8 +72,7 @@ export default function SigninForm({ toggleFunction }: any) {
                             <FormMessage />
                         </FormItem>
                     )}
-                    >
-                </FormField>
+                    />
                 <FormField
                     control={form.control}
                     name="password"
@@ -86,8 +85,7 @@ export default function SigninForm({ toggleFunction }: any) {
                             <FormMessage />
                         </FormItem>
                     )}
-                    >
-                </FormField>
+                    />
                 <Button type="submit">Submit</Button>
                 <Button onClick={() => toggleFunction()} variant={"link"}>Not registered yet? Register.</Button>
             </form>

@@ -1,35 +1,106 @@
 "use client";
 
-import { Button } from "./ui/button";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Form, FormField, FormControl, FormItem, FormDescription, FormLabel, FormMessage } from "./ui/form";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
 import { DialogFooter } from "./ui/dialog";
-import { z } from "zod";
 
 const threadSchema = z.object({
-    title: z.string().min(3).max(16).trim(),
-    description: z.string().min(6).max(64),
+    title: z.string().min(3, {
+        message: 'The title must at least contain 3 character(s)'
+    }).max(16, {
+        message: 'The title cant contain more than 16 character(s)'
+    }).trim().toLowerCase(),
+    description: z.string().min(6, {
+        message: 'The description must at least contain 6 character(s)'
+    }).max(32, {
+        message: 'The description cant contain more than 32 character(s)'
+    }),
 })
 
 export default function NewThreadForm(){
-    const { push } = useRouter();
-    async function MakeThread(){
+    const { toast } = useToast();
+
+    const router = useRouter();
+
+    const form = useForm<z.infer<typeof threadSchema>>({
+        resolver: zodResolver(threadSchema),
+        defaultValues: {
+            title: "",
+            description: "",
+        }
+    })
+
+    function onSubmit(values: z.infer<typeof threadSchema>) {
         try {
-            await axios.post('/api/new/thread', {
-                title: 'test',
-                description: 'test',
+            axios.post('/api/new/thread', {
+                title: values.title,
+                description: values.description,
             })
-            push(`/t/${"test"}`)
+            .then(() => {
+                router.refresh();
+                router.replace(`/t/${values.title}`)
+                toast({
+                    title: "Success.",
+                    description: "New thread created.",
+                })
+            })
+            .catch((err) => (
+                toast({
+                    title: "There was a problem when making this thread.",
+                    description: "Check your title and try again.",
+                })
+            ))
         } catch {
-            console.log('There was a problem making this thread')
+            toast({
+                title: "There was a problem when making this thread.",
+                description: "Check your title and try again.",
+            })
         }
     }
 
     return(
-        <DialogFooter>
-            <Button onClick={MakeThread}>
-                Create
-            </Button>
-        </DialogFooter>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+                <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Title</FormLabel>
+                            <FormControl>
+                                <Input placeholder="example" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Description</FormLabel>
+                            <FormControl>
+                                <Input placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi..." {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <DialogFooter>
+                    <Button type="submit">
+                        Create
+                    </Button>
+                </DialogFooter>
+            </form>
+        </Form>
+        
     )
 }
