@@ -26,7 +26,7 @@ export default async function ThreadPage({ params }: any){
         <div>
             {thread ? (
                 <div className='flex flex-col'>
-                    <span>{thread.title}</span>
+                    <span>t/{thread.title}</span>
                     <span>{thread.description}</span>
                 </div>
             ) : (

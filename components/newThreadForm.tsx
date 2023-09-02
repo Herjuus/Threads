@@ -14,13 +14,15 @@ import { DialogFooter } from "./ui/dialog";
 const threadSchema = z.object({
     title: z.string().min(3, {
         message: 'The title must at least contain 3 character(s)'
-    }).max(16, {
+    }).max(26, {
         message: 'The title cant contain more than 16 character(s)'
-    }).trim().toLowerCase(),
+    }).toLowerCase().refine(s => !s.includes(' '), {
+        message: 'The title cant contain any spaces'
+    }),
     description: z.string().min(6, {
         message: 'The description must at least contain 6 character(s)'
-    }).max(32, {
-        message: 'The description cant contain more than 32 character(s)'
+    }).max(48, {
+        message: 'The description cant contain more than 48 character(s)'
     }),
 })
 
