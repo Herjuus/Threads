@@ -1,7 +1,9 @@
+import getCurrentUser from '@/components/actions/getCurrentUser';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import prisma from '@/lib/prismadb';
+import { MoreVertical } from 'lucide-react';
 import Link from 'next/link';
 
 async function getThread(title: string){
@@ -25,6 +27,7 @@ async function getThread(title: string){
 
 export default async function ThreadPage({ params }: any){
     const thread = await getThread(params.id);
+    const user = await getCurrentUser()
 
     return(
         <div>
@@ -35,9 +38,30 @@ export default async function ThreadPage({ params }: any){
                             <span className='font-bold text-xl'>t/{thread.title}</span>
                             <span className='font-light text-md'>{thread.description}</span>
                         </div>
-                        <Button>
-                            New post
-                        </Button>
+                        {user ? (
+                            <div>
+                                {thread?.memberId.includes(user?.id!) ? (
+                                    <div className='flex items-center space-x-2'>
+                                        <Button>
+                                            New post
+                                        </Button>
+                                        <Button className='text-base' variant={'outline'} size={'icon'}>
+                                            <MoreVertical />
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <Button>
+                                        Join thread
+                                    </Button>
+                                )}
+                            </div>
+                        ): (
+                            <div>
+                                <Button disabled>
+                                    Sign in to join
+                                </Button>
+                            </div>
+                        )}
                     </div>
                     <Separator/>
                     <div className='space-y-2'>
@@ -48,7 +72,7 @@ export default async function ThreadPage({ params }: any){
                                         <span className='font-semibold'>Post name</span>
                                         <span className='font-light'>User</span>
                                     </div>
-                                    <span className='flex-1 line-clamp-2 font-extralight'>I love anime tiddies</span>
+                                    <span className='flex-1 line-clamp-2 font-extralight'>fr</span>
                                 </CardContent>
                             </Card>
                         </Link>
