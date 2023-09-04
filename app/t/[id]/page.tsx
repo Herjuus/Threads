@@ -1,6 +1,7 @@
 import getCurrentUser from '@/components/actions/getCurrentUser';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
 import prisma from '@/lib/prismadb';
 import { MoreVertical } from 'lucide-react';
@@ -45,9 +46,18 @@ export default async function ThreadPage({ params }: any){
                                         <Button>
                                             New post
                                         </Button>
-                                        <Button className='text-base' variant={'outline'} size={'icon'}>
-                                            <MoreVertical />
-                                        </Button>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button className='text-base' variant={'outline'} size={'icon'}>
+                                                    <MoreVertical />
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent align='end'>
+                                                <DropdownMenuItem>
+                                                    Leave thread
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
                                     </div>
                                 ) : (
                                     <Button>
@@ -58,13 +68,24 @@ export default async function ThreadPage({ params }: any){
                         ): (
                             <div>
                                 <Button disabled>
-                                    Sign in to join
+                                    Sign in to post
                                 </Button>
                             </div>
                         )}
                     </div>
                     <Separator/>
-                    <div className='space-y-2'>
+                    <div className='flex flex-col space-y-1'>
+                        <Link href={`/p/${"post-name"}`}>
+                            <Card>
+                                <CardContent className='flex flex-row p-4 space-x-5'>
+                                    <div className='flex flex-col w-2/6 md:w-1/6'>
+                                        <span className='font-semibold'>Post name</span>
+                                        <span className='font-light'>User</span>
+                                    </div>
+                                    <span className='flex-1 line-clamp-2 font-extralight'>fr</span>
+                                </CardContent>
+                            </Card>
+                        </Link>
                         <Link href={`/`}>
                             <Card>
                                 <CardContent className='flex flex-row p-4 space-x-5'>
@@ -76,7 +97,6 @@ export default async function ThreadPage({ params }: any){
                                 </CardContent>
                             </Card>
                         </Link>
-                        
                     </div>
                 </div>
                 
