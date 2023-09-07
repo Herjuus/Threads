@@ -8,7 +8,7 @@ import {
     DropdownMenuLabel,
   } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { ChevronDown, LogOut, Settings2, ListPlus, PlusSquare, User } from "lucide-react";
+import { ChevronDown, LogOut, Settings2, ListPlus, PlusSquare, User, FolderSearch } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { DialogTrigger, Dialog, DialogContent, DialogTitle, DialogHeader, DialogDescription, DialogFooter } from "./ui/dialog";
@@ -34,6 +34,9 @@ export default function UserDropdown(props: any) {
                     <DropdownMenuLabel>Threads</DropdownMenuLabel>
                     <Link href={`/u/${props.currentUser.username}`}>
                         <DropdownMenuItem className="gap-1"><User size={15}/>Profile</DropdownMenuItem>
+                    </Link>
+                    <Link href={`/discover`}>
+                        <DropdownMenuItem className="gap-1"><FolderSearch size={15}/>Discover</DropdownMenuItem>
                     </Link>
                     <DialogTrigger>
                         <DropdownMenuItem className="gap-1"><PlusSquare size={15}/>New thread</DropdownMenuItem>
