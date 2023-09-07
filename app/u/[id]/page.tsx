@@ -22,26 +22,12 @@ async function getUser(username: string){
 export default async function UserPage({ params }: any){
     const user = await getUser(params.id);
 
-    const threads = await prisma.thread.findMany({
-        where: {
-            members: {
-                every: {
-                    username: user?.username
-                }
-            }
-        }
-    })
-
     return(
         <div>
             {user ? (
                 <div className='flex flex-col'>
                     <span>{user?.username}</span>
                     <span>{user?.description}</span>
-                    <span>{threads.length}</span>
-                    <span>{threads.map((thread) => (
-                        thread.title
-                    ))}</span>
                 </div>
             ) : (
                 <div className='flex flex-col'>
