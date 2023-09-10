@@ -13,6 +13,7 @@ import { Button } from "./ui/button";
 import RegisterForm from "./registerForm"
 import { useState } from "react";
 import SigninForm from "./signinForm";
+import { signIn } from "next-auth/react";
 
 export default function SignInButton() {
     const [isRegister, setIsRegister] = useState(false);
