@@ -7,8 +7,6 @@ import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import { Loader2, MoreVertical } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { AlertDialog, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog";
-import { AlertDialogAction, AlertDialogCancel } from "@radix-ui/react-alert-dialog";
 import { useState } from "react";
 
 type props = {
