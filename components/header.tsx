@@ -22,6 +22,7 @@ export default async function Header(){
                 )}
                 <Button variant={"outline"} size={"icon"}>
                     <Search className="h-[1.2rem] w-[1.2rem]"/>
+                    <span className="sr-only">Search</span>
                 </Button>
                 <ModeToggle/>
             </div>

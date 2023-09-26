@@ -44,7 +44,7 @@ export function ThreadDropdown(props: props){
     return(
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button className='text-base' variant={'outline'} size={'icon'}>
+                <Button disabled={loading} className='text-base' variant={'outline'} size={'icon'}>
                     {loading ? (
                         <Loader2 className="animate-spin"/>
                     ) : (
