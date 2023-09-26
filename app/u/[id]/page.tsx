@@ -31,7 +31,7 @@ export default async function UserPage({ params }: any){
                 </div>
             ) : (
                 <div className='flex flex-col'>
-                    <span>User {params.id} doesn't exist.</span>
+                    <span>User {params.id} does not exist.</span>
                 </div>
             )}
         </main>
