@@ -1,10 +1,10 @@
 import getCurrentUser from '@/components/actions/getCurrentUser';
+import { JoinThreadButton } from '@/components/joinThread';
+import { ThreadDropdown } from '@/components/threadDropdown';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
 import prisma from '@/lib/prismadb';
-import { MoreVertical } from 'lucide-react';
 import Link from 'next/link';
 
 async function getThread(title: string){
@@ -46,23 +46,10 @@ export default async function ThreadPage({ params }: any){
                                         <Button>
                                             New post
                                         </Button>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button className='text-base' variant={'outline'} size={'icon'}>
-                                                    <MoreVertical />
-                                                </Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent align='end'>
-                                                <DropdownMenuItem>
-                                                    Leave thread
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
+                                        <ThreadDropdown thread={thread} user={user}/>
                                     </div>
                                 ) : (
-                                    <Button>
-                                        Join thread
-                                    </Button>
+                                    <JoinThreadButton thread={thread} user={user}/>
                                 )}
                             </div>
                         ): (
