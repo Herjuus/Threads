@@ -16,6 +16,8 @@ const threadSchema = z.object({
         message: 'The title must at least contain 3 character(s)'
     }).max(26, {
         message: 'The title cant contain more than 16 character(s)'
+    }).regex(/^[a-z_-]+$/, {
+        message: 'The title can only contain lowercase letters, underscores, and hyphens'
     }).toLowerCase().refine(s => !s.includes(' '), {
         message: 'The title cant contain any spaces'
     }),

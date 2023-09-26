@@ -11,13 +11,14 @@ import axios from "axios";
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation";
 
-
 const registerSchema = z.object({
     username: z.string().min(3, {
         message: "Username must contain at least 3 character(s)"
     }).max(16, {
-        message: "Username cant contain more than 64 character(s)"
-    }).trim(),
+        message: "Username cant contain more than 16 character(s)"
+    }).trim().regex(/^[a-zA-Z0-9_-]+$/, {
+        message: "Username can only contain letters, numbers, underscores, and hyphens"
+    }),
     email: z.string().toLowerCase().email({
         message: "Please enter a valid email"
     }),

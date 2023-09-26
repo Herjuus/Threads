@@ -23,7 +23,7 @@ export default async function UserPage({ params }: any){
     const user = await getUser(params.id);
 
     return(
-        <div>
+        <main>
             {user ? (
                 <div className='flex flex-col'>
                     <span>{user?.username}</span>
@@ -34,7 +34,7 @@ export default async function UserPage({ params }: any){
                     <span>User "{params.id}" doesn't exist.</span>
                 </div>
             )}
-        </div>
+        </main>
         
         
     )

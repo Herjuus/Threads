@@ -31,7 +31,7 @@ export default async function ThreadPage({ params }: any){
     const user = await getCurrentUser()
 
     return(
-        <div>
+        <main>
             {thread ? (
                 <div className='space-y-3'>
                     <div className='flex justify-between items-center'>
@@ -92,8 +92,6 @@ export default async function ThreadPage({ params }: any){
                     <span>Thread "t/{params.id}" doesn't exist.</span>
                 </div>
             )}
-        </div>
-        
-        
+        </main>
     )
 }

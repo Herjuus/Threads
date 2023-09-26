@@ -17,7 +17,7 @@ export default async function DiscoverPage(){
     const threads = await GetThreads();
 
     return(
-        <div className="space-y-2 flex flex-col">
+        <main className="space-y-2 flex flex-col">
             {threads.map((thread) => (
                 <Link className="" href={`/t/${thread.title}`}>
                     <Card>
@@ -34,6 +34,6 @@ export default async function DiscoverPage(){
                     </Card>
                 </Link>
             ))}
-        </div>
+        </main>
     )
 }
