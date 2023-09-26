@@ -89,7 +89,7 @@ export default async function ThreadPage({ params }: any){
                 
             ) : (
                 <div className='flex flex-col'>
-                    <span>Thread "t/{params.id}" doesn't exist.</span>
+                    <span>Thread t/{params.id} doesn't exist.</span>
                 </div>
             )}
         </main>

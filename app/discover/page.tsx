@@ -19,7 +19,7 @@ export default async function DiscoverPage(){
     return(
         <main className="space-y-2 flex flex-col">
             {threads.map((thread) => (
-                <Link className="" href={`/t/${thread.title}`}>
+                <Link key={thread.id} className="" href={`/t/${thread.title}`}>
                     <Card>
                         <CardContent className="flex justify-between pt-6">
                             <div className="">
