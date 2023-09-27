@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import prisma from "@/lib/prismadb";
+import { Thread } from "@prisma/client";
 import Link from "next/link";
 
 async function GetThreads(){
@@ -14,7 +15,7 @@ async function GetThreads(){
 }
 
 export default async function DiscoverPage(){
-    const threads = await GetThreads();
+    const threads = await GetThreads() as Thread[];
 
     return(
         <main className="space-y-2 flex flex-col">
