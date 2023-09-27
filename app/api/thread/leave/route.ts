@@ -1,9 +1,9 @@
 import getCurrentUser from "@/components/actions/getCurrentUser";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 
 export async function POST(
-    request: NextRequest
+    request: Request
 ) {
     const body = await request.json();
     const {
@@ -29,5 +29,5 @@ export async function POST(
         }
     })
 
-    return NextResponse.json(update);
+    return NextResponse.json({ update });
 }
