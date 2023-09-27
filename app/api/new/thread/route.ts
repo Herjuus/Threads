@@ -3,29 +3,32 @@ import prisma from "@/lib/prismadb";
 import { Thread } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-// @ts-ignore
 export async function POST(request: NextRequest) {
-    const body = await request.json();
-    const {
-        title,
-        description,
-    } = body;
-
-    const user = await getCurrentUser()
-
-    if (!user) {
-        return new Error("Not authenticated")
-    }
-
-    const thread = await prisma.thread.create({
-        data: {
+    try {
+        const body = await request.json();
+        const {
             title,
             description,
-            members: {
-                connect: [{ username: user?.username }]
-            }
+        } = body;
+    
+        const user = await getCurrentUser()
+    
+        if (!user) {
+            return new Error("Not authenticated")
         }
-    });
-
-    return NextResponse.json(thread);
+    
+        const thread = await prisma.thread.create({
+            data: {
+                title,
+                description,
+                members: {
+                    connect: [{ username: user?.username }]
+                }
+            }
+        });
+        return NextResponse.json(thread);
+    } catch {
+        return new Error("Request failed")
+    }
+    
 }
