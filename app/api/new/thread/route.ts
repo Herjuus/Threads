@@ -1,8 +1,9 @@
 import getCurrentUser from "@/components/actions/getCurrentUser";
 import prisma from "@/lib/prismadb";
+import type { Thread } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest): Promise<void | NextResponse<any>> {
+export async function POST(request: NextRequest): Promise<NextResponse | NextResponse<Thread>> {
     const body = await request.json();
     const {
         title,

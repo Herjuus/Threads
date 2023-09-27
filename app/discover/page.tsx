@@ -15,7 +15,7 @@ async function GetThreads(){
 }
 
 export default async function DiscoverPage(){
-    const threads = await GetThreads() as Thread[];
+    const threads = await GetThreads();
 
     return(
         <main className="space-y-2 flex flex-col">
