@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import prisma from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse<any>> {
     try {
         const body = await request.json();
         const {
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
         })
         return NextResponse.json(data);
     } catch {
-        return new Error("Request failed")
+        return NextResponse.json("Request failed.")
     }
     
 }
