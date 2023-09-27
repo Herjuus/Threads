@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import prisma from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest): Promise<any> {
+export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
         email,

@@ -2,7 +2,7 @@ import getCurrentUser from "@/components/actions/getCurrentUser";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 
-export async function POST(request: NextRequest): Promise<any> {
+export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
         threadId,
