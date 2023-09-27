@@ -27,7 +27,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<any>> {
                 }
             }
         })
-        return NextResponse.json(update);
+        return NextResponse.json({update});
     } catch {
         return NextResponse.json("Request failed.")
     }

@@ -25,7 +25,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<any>> {
                 }
             }
         });
-        return NextResponse.json(thread);
+        return NextResponse.json({thread});
     } catch {
         return NextResponse.json("Request failed.")
     }

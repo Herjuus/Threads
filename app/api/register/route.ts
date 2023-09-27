@@ -21,7 +21,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<any>> {
                 description: "Welcome to my profile."
             }
         })
-        return NextResponse.json(data);
+        return NextResponse.json({data});
     } catch {
         return NextResponse.json("Request failed.")
     }
