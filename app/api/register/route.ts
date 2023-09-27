@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import prisma from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest): Promise<NextResponse<any>> {
+export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
         email,
@@ -20,5 +20,6 @@ export async function POST(request: NextRequest): Promise<NextResponse<any>> {
             description: "Welcome to my profile."
         }
     })
+
     return NextResponse.json(data);
 }
