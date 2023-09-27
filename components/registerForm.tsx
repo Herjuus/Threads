@@ -10,6 +10,8 @@ import { useToast } from "./ui/use-toast";
 import axios from "axios";
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const registerSchema = z.object({
     username: z.string().min(3, {
@@ -35,6 +37,8 @@ const registerSchema = z.object({
 })
 
 export default function RegisterForm({ toggleFunction }: any) {
+    const [loading, setLoading] = useState(false);
+
     const { toast } = useToast();
 
     const router = useRouter();
@@ -50,6 +54,7 @@ export default function RegisterForm({ toggleFunction }: any) {
     })
 
     function onSubmit(values: z.infer<typeof registerSchema>) {
+        setLoading(true);
         if (values.password !== values.confirmPassword) {
             toast({
                 title: "Password's doesn't match.",
@@ -88,6 +93,9 @@ export default function RegisterForm({ toggleFunction }: any) {
                 title: "There was a problem while registering.",
                 description: "Check your email and/or username and try again.",
             })
+        })
+        .finally(() => {
+            setLoading(false);
         })
     }
 
@@ -146,8 +154,19 @@ export default function RegisterForm({ toggleFunction }: any) {
                         </FormItem>
                     )}
                     />
-                <Button type="submit">Submit</Button>
-                <Button onClick={() => toggleFunction()} variant={"link"}>Already a member? Sign in.</Button>
+                <div className="flex items-center flex-col sm:flex-row">
+                    <Button className="gap-1 w-full sm:w-auto" disabled={loading} type="submit">
+                            {loading ? (
+                                <>
+                                    <Loader2 className="animate-spin w-4"/>
+                                    <span>Registering</span>
+                                </>
+                            ) : (
+                                <span>Register</span>
+                            )}
+                    </Button>
+                    <Button disabled={loading} onClick={() => toggleFunction()} variant={"link"}>Already a member? Sign in.</Button>
+                </div>
             </form>
         </Form>
     )

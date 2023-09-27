@@ -23,7 +23,7 @@ export default async function DiscoverPage(){
                     <Card>
                         <CardContent className="flex justify-between pt-6">
                             <div className="">
-                                <CardTitle className="">{thread.title}</CardTitle>
+                                <CardTitle className="">t/{thread.title}</CardTitle>
                                 <span>{thread.description}</span>
                             </div>
                             <div className="flex items-end flex-col justify-end">

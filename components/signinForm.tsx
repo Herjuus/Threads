@@ -9,6 +9,8 @@ import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 
 const signinSchema = z.object({
@@ -23,6 +25,8 @@ const signinSchema = z.object({
 })
 
 export default function SigninForm({ toggleFunction }: any) {
+    const [loading, setLoading] = useState(false);
+        
     const { toast } = useToast();
 
     const router = useRouter();
@@ -36,6 +40,7 @@ export default function SigninForm({ toggleFunction }: any) {
     })
 
     function onSubmit(values: z.infer<typeof signinSchema>) {
+        setLoading(true);
         signIn('credentials', {
             email: values.email,
             password: values.password,
@@ -54,6 +59,9 @@ export default function SigninForm({ toggleFunction }: any) {
                     description: "Check your email and/or username and try again.",
                 })
             }
+        })
+        .finally(() => {
+            setLoading(false);
         })
     }
 
@@ -86,8 +94,19 @@ export default function SigninForm({ toggleFunction }: any) {
                         </FormItem>
                     )}
                     />
-                <Button type="submit">Submit</Button>
-                <Button onClick={() => toggleFunction()} variant={"link"}>Not registered yet? Register.</Button>
+                <div className="flex items-center flex-col sm:flex-row">
+                    <Button className="gap-1 w-full sm:w-auto" disabled={loading} type="submit">
+                        {loading ? (
+                            <>
+                                <Loader2 className="animate-spin w-4"/>
+                                <span>Signing in</span>
+                            </>
+                        ) : (
+                            <span>Sign in</span>
+                        )}
+                    </Button>
+                    <Button disabled={loading} onClick={() => toggleFunction()} variant={"link"}>Not registered yet? Register.</Button>
+                </div>
             </form>
         </Form>
     )

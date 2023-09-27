@@ -62,7 +62,7 @@ export default async function ThreadPage({ params }: any){
                     </div>
                     <Separator/>
                     <div className='flex flex-col space-y-1'>
-                        <Link href={`/p/${"post-name"}`}>
+                        <Link href={`./${thread.title}/${"post-name"}`}>
                             <Card>
                                 <CardContent className='flex flex-row p-4 space-x-5'>
                                     <div className='flex flex-col w-2/6 md:w-1/6'>

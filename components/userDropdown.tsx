@@ -8,7 +8,7 @@ import {
     DropdownMenuLabel,
   } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { ChevronDown, LogOut, Settings2, ListPlus, PlusSquare, User, FolderSearch } from "lucide-react";
+import { ChevronDown, LogOut, Settings2, ListPlus, PlusSquare, User, FolderSearch, Loader2 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { DialogTrigger, Dialog, DialogContent, DialogTitle, DialogHeader, DialogDescription, DialogFooter } from "./ui/dialog";
@@ -18,6 +18,7 @@ import { useState } from "react";
 
 
 export default function UserDropdown(props: any) {
+    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
     function closeDialog(){
@@ -28,7 +29,17 @@ export default function UserDropdown(props: any) {
         <Dialog open={open} onOpenChange={setOpen}>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button className="text-base" variant={"outline"}>{props.currentUser.username}<ChevronDown size={15}/></Button>
+                    <Button disabled={loading} className="text-base flex items-center gap-1" variant={"outline"}>
+                        {loading && (
+                            <>
+                                <Loader2 className="w-4 animate-spin"/>
+                            </>
+                        )}
+                        <span>
+                            {props.currentUser.username}
+                        </span>
+                        <ChevronDown size={15}/>
+                    </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                     <DropdownMenuLabel>Threads</DropdownMenuLabel>
@@ -45,7 +56,7 @@ export default function UserDropdown(props: any) {
                     <Link href={'/settings'}>
                         <DropdownMenuItem className="gap-1"><Settings2 size={15}/>Settings</DropdownMenuItem>
                     </Link>
-                    <DropdownMenuItem className="gap-1" onClick={() => signOut()}><LogOut size={15}/>Sign out</DropdownMenuItem>
+                    <DropdownMenuItem className="gap-1" onClick={() => {setLoading(true); signOut().finally(() => {setLoading(false)});}}><LogOut size={15}/>Sign out</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
             <DialogContent>
