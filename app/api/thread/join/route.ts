@@ -2,6 +2,7 @@ import getCurrentUser from "@/components/actions/getCurrentUser";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 
+// @ts-ignore
 export async function POST(request: NextRequest) {
     const body = await request.json();
     const {

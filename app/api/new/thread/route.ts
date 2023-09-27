@@ -3,6 +3,7 @@ import prisma from "@/lib/prismadb";
 import { Thread } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
+// @ts-ignore
 export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
