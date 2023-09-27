@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import prisma from "@/lib/prismadb";
-import { Thread } from "@prisma/client";
+import type { Thread } from "@prisma/client";
 import Link from "next/link";
 
 async function GetThreads(){
