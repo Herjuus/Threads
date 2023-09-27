@@ -27,5 +27,5 @@ export async function POST(
         }
     });
 
-    return NextResponse.json({thread});
+    return NextResponse.json(thread);
 }

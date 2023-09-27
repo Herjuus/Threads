@@ -29,5 +29,5 @@ export async function POST(
         }
     })
 
-    return NextResponse.json({ update });
+    return NextResponse.json(update);
 }

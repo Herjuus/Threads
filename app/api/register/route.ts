@@ -23,5 +23,5 @@ export async function POST(
         }
     })
 
-    return NextResponse.json({user});
+    return NextResponse.json(user);
 }
