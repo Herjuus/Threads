@@ -2,7 +2,7 @@ import getCurrentUser from "@/components/actions/getCurrentUser";
 import prisma from "@/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<void | NextResponse<any>> {
     const body = await request.json();
     const {
         title,
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     const user = await getCurrentUser()
 
     if (!user) {
-        return new Error("Not authenticated")
+        return NextResponse.json({ error: "Not authenticated" });
     }
 
     const thread = await prisma.thread.create({
