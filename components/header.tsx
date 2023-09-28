@@ -11,7 +11,7 @@ export default async function Header(){
 
     return(
         <header className="flex justify-between items-center py-3">
-            <Link href={"/"} className="text-3xl font-light">THREADS<span className="text-sm font-bold">BETA</span></Link>
+            <Link href={"/"} className="text-3xl font-light">THREADS</Link>
             <div className="flex items-center gap-2">
                 {user ? (
                     <div className="flex items-center gap-2">

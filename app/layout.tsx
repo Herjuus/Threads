@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} flex justify-center`}>
-        <main className='w-full mx-2 sm:mx-0 sm:w-11/12 md:w-5/6 lg:w-4/6'>
+        <main className='w-full px-1 sm:px-0 mx-2 sm:mx-0 sm:w-11/12 md:w-5/6 lg:w-4/6'>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
             <Toaster/>
             <Header/>

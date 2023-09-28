@@ -10,13 +10,15 @@ import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
 import { DialogFooter } from "./ui/dialog";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const threadSchema = z.object({
     title: z.string().min(3, {
         message: 'The title must at least contain 3 character(s)'
     }).max(26, {
         message: 'The title cant contain more than 16 character(s)'
-    }).regex(/^[a-z_-]+$/, {
+    }).regex(/^[a-z1-9_-]+$/, {
         message: 'The title can only contain lowercase letters, underscores, and hyphens'
     }).toLowerCase().refine(s => !s.includes(' '), {
         message: 'The title cant contain any spaces'
@@ -29,6 +31,7 @@ const threadSchema = z.object({
 })
 
 export default function NewThreadForm(props: any){
+    const [loading, setLoading] = useState(false);
 
     const { toast } = useToast();
 
@@ -44,6 +47,7 @@ export default function NewThreadForm(props: any){
 
     function onSubmit(values: z.infer<typeof threadSchema>) {
         try {
+            setLoading(true);
             axios.post('/api/new/thread', {
                 title: values.title,
                 description: values.description,
@@ -63,11 +67,15 @@ export default function NewThreadForm(props: any){
                     description: "Check your title and try again.",
                 })
             ))
+            .finally(() => {
+                setLoading(false)
+            })
         } catch {
             toast({
                 title: "There was a problem when making this thread.",
                 description: "Check your title and try again.",
             })
+            setLoading(false);
         }
     }
 
@@ -101,8 +109,15 @@ export default function NewThreadForm(props: any){
                     )}
                 />
                 <DialogFooter>
-                    <Button type="submit">
-                        Create
+                    <Button className="flex gap-1" disabled={loading} type="submit">
+                        {loading ? (
+                            <>
+                                <Loader2 className="animate-spin w-4" />
+                                <span>Creating</span>
+                            </>
+                        ) : (
+                            <span>Create</span>
+                        )}
                     </Button>
                 </DialogFooter>
             </form>

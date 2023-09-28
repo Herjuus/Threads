@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import prisma from "@/lib/prismadb";
-import type { Thread } from "@prisma/client";
 import Link from "next/link";
 
 async function GetThreads(){
@@ -19,6 +19,8 @@ export default async function DiscoverPage(){
 
     return(
         <main className="space-y-2 flex flex-col">
+            <span className="text-2xl font-bold">Discover</span>
+            <Separator />
             {threads.map((thread) => (
                 <Link key={thread.id} className="" href={`/t/${thread.title}`}>
                     <Card>
