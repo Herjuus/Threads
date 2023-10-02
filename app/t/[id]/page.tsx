@@ -1,5 +1,6 @@
 import getCurrentUser from '@/components/actions/getCurrentUser';
 import { JoinThreadButton } from '@/components/joinThread';
+import NewPost from '@/components/newPost';
 import { ThreadDropdown } from '@/components/threadDropdown';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -48,9 +49,7 @@ export default async function ThreadPage({ params }: any){
                                     <div>
                                         {thread?.memberId.includes(user?.id!) ? (
                                             <div className='flex items-center justify-between space-x-2'>
-                                                <Button>
-                                                    New post
-                                                </Button>
+                                                <NewPost thread={thread}/>
                                                 <ThreadDropdown thread={thread} user={user}/>
                                             </div>
                                         ) : (
