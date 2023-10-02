@@ -36,6 +36,7 @@ model Post {
   title String 
   content String
   imgurl String?
+  slug String
 }
 
 model Thread {

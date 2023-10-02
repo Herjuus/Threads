@@ -28,7 +28,9 @@ async function getThread(title: string){
 
 export default async function ThreadPage({ params }: any){
     const thread = await getThread(params.id);
-    const user = await getCurrentUser()
+    const user = await getCurrentUser();
+
+    const text = "How to blablabla\nI want to try out snowboarding lmao rofl"
 
     return(
         <main>
@@ -63,7 +65,7 @@ export default async function ThreadPage({ params }: any){
                                     </div>
                                 )}
                             </div>
-                            <Link href={`./${thread.title}/p/${"post-name"}`}>
+                            <Link href={`./${thread.title}/${"post-name"}`}>
                                 <Card className='overflow-hidden max-h-96 relative'>
                                     <div className='h-36 bg-gradient-to-t from-white dark:from-black to-transparent top-60 absolute w-full'></div>
                                     <CardHeader>
@@ -75,7 +77,10 @@ export default async function ThreadPage({ params }: any){
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent className=''>
-                                        <img src="https://wallpapers.com/images/hd/blue-aesthetic-moon-df8850p673zj275y.jpg" alt="" />
+                                        <div className='whitespace-pre-line'>
+                                            {text}
+                                        </div>
+                                        {/* <img src="https://wallpapers.com/images/hd/blue-aesthetic-moon-df8850p673zj275y.jpg" alt="" /> */}
                                     </CardContent>
                                 </Card>
                             </Link>

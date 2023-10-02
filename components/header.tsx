@@ -4,7 +4,7 @@ import SignInButton from "./signIn";
 import Link from "next/link";
 import UserDropdown from "./userDropdown";
 import { Button } from "./ui/button";
-import { Search, PlusSquare } from "lucide-react";
+import { Search } from "lucide-react";
 
 export default async function Header(){
     const user = await getCurrentUser();

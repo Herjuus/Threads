@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Form, FormField, FormControl, FormItem, FormDescription, FormLabel, FormMessage } from "./ui/form";
+import { Form, FormField, FormControl, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
@@ -88,7 +88,7 @@ export default function RegisterForm({ toggleFunction }: any) {
                 }
             })
         })
-        .catch((err) => {
+        .catch(() => {
             toast({
                 title: "There was a problem while registering.",
                 description: "Check your email and/or username and try again.",
