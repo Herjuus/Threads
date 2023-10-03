@@ -29,7 +29,7 @@ const postSchema = z.object({
     }).regex(/^[a-zA-Z 1-9_!?"-]+$/, {
         message: 'The title can only contain letters, spaces, underscores, and hyphens'
     }),
-    content: z.string().min(6, {
+    content: z.string().min(0, {
         message: 'The post must at least contain 6 character(s)'
     }).max(1024, {
         message: 'The post cant contain more than 1024 character(s)'
@@ -92,11 +92,17 @@ export default function NewPostForm(props: props){
 
         const res: any = await uploadImage();
 
+        const getImageUrl = () => {
+            if(res) {
+                return res[0].url
+            } else return null
+        }
+
         axios.post('/api/new/post', {
             title: values.title,
             content: values.content,
             threadID: props.thread.id,
-            imgurl: res[0].url,
+            imgurl: getImageUrl(),
         })
         .then(() => {
             props.closeFunction();

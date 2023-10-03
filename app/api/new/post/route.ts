@@ -19,6 +19,14 @@ export async function POST(request: NextRequest) {
 
     const slug = await title.split(' ').join('_').toLowerCase();
 
+    const getImgURL = () => {
+        if (imgurl) {
+            return imgurl;
+        } else {
+            return null;
+        }
+    }
+
     const post = await prisma.post.create({
         data: {
             title,
@@ -26,7 +34,7 @@ export async function POST(request: NextRequest) {
             slug,
             threadId: threadID,
             authorId: user.id,
-            imgurl,
+            imgurl: await getImgURL(),
         },
     });
 

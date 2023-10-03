@@ -1,11 +1,13 @@
 import getCurrentUser from '@/components/actions/getCurrentUser';
 import { JoinThreadButton } from '@/components/joinThread';
 import NewPost from '@/components/newPost';
+import PostCard from '@/components/postCard';
 import { ThreadDropdown } from '@/components/threadDropdown';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import prisma from '@/lib/prismadb';
+import type { Thread } from '@prisma/client';
 import Link from 'next/link';
 
 async function getThread(title: string){
@@ -27,11 +29,31 @@ async function getThread(title: string){
     
 }
 
+async function getPosts(thread: Thread) {
+    try {
+        const posts = await prisma.post.findMany({
+            where: {
+                threadId: thread.id
+            },
+            orderBy: {
+                createdAt: 'desc',
+            }
+        })
+
+        if (!posts) {
+            return null;
+        }
+
+        return posts;
+    } catch {
+        return null;
+    }
+}
+
 export default async function ThreadPage({ params }: any){
     const thread = await getThread(params.id);
     const user = await getCurrentUser();
-
-    const text = "How to blablabla\nI want to try out snowboarding lmao rofl"
+    const posts = await getPosts(thread as Thread);
 
     return(
         <main>
@@ -64,25 +86,12 @@ export default async function ThreadPage({ params }: any){
                                     </div>
                                 )}
                             </div>
-                            <Link href={`./${thread.title}/${"post-name"}`}>
-                                <Card className='overflow-hidden max-h-96 relative'>
-                                    <div className='h-36 bg-gradient-to-t from-white dark:from-black to-transparent top-60 absolute w-full'></div>
-                                    <CardHeader>
-                                        <CardTitle>
-                                            Post title
-                                        </CardTitle>
-                                        <CardDescription>
-                                            User
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent className=''>
-                                        <div className='whitespace-pre-line'>
-                                            {text}
-                                        </div>
-                                        {/* <img src="https://wallpapers.com/images/hd/blue-aesthetic-moon-df8850p673zj275y.jpg" alt="" /> */}
-                                    </CardContent>
-                                </Card>
-                            </Link>
+                            {posts == "" && (
+                                <span>This thread has no posts.</span>
+                            )}
+                            {posts?.map((post) => (
+                                <PostCard thread={thread} post={post} key={post.id}/>
+                            ))}
                         </div>
                         <div className='flex-1'>
                             <Card className=''>

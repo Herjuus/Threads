@@ -19,7 +19,7 @@ export default function NewPost(props: props){
 
     return(
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger>
+            <DialogTrigger asChild>
                 <Button>New post</Button>
             </DialogTrigger>
             <DialogContent>
