@@ -86,9 +86,9 @@ export default async function ThreadPage({ params }: any){
                                     </div>
                                 )}
                             </div>
-                            {posts == "" && (
+                            {/* {posts == "" && (
                                 <span>This thread has no posts.</span>
-                            )}
+                            )} */}
                             {posts?.map((post) => (
                                 <PostCard thread={thread} post={post} key={post.id}/>
                             ))}
