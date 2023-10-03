@@ -23,6 +23,7 @@ export default function ImageUploader(){
             files,
             endpoint: "imageUploader",
         });
+        console.log(res[0].url)
     }
 
     return(

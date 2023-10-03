@@ -36,7 +36,7 @@ model Post {
   title String 
   content String
   imgurl String?
-  slug String
+  slug String @unique
 }
 
 model Thread {

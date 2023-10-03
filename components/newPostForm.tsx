@@ -14,6 +14,12 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Textarea } from "./ui/textarea";
 import { uploadFiles } from "@/lib/uploadthing";
+import type { Thread } from "@prisma/client";
+
+type props = {
+    thread: Thread;
+    closeFunction: Function;
+}
 
 const postSchema = z.object({
     title: z.string().min(3, {
@@ -30,7 +36,7 @@ const postSchema = z.object({
     }),
 })
 
-export default function NewPostForm(props: any){
+export default function NewPostForm(props: props){
     const [loading, setLoading] = useState(false);
 
     const [file, setFile] = useState("");
@@ -54,25 +60,62 @@ export default function NewPostForm(props: any){
 
     async function onSubmit(values: z.infer<typeof postSchema>) {
         setLoading(true);
-        let res;
 
-        if (file) {
-            setLoadingMessage("Uploading image")
-            const files = await [
-                // @ts-ignore
-                new File([file], `${file.name}`, {
-                  type: "image/jpeg",
-                }),
-            ];
-    
-            res = await uploadFiles({
-                files,
-                endpoint: "imageUploader",
-            });
-            setLoadingMessage("Posting")
+        async function uploadImage(){
+            if (file) {
+                setLoadingMessage("Uploading image")
+                const files = await [
+                    // @ts-ignore
+                    new File([file], `${file.name}`, {
+                      type: "image/jpeg",
+                    }),
+                ];
+        
+                try {
+                    const res = await uploadFiles({
+                        files,
+                        endpoint: "imageUploader",
+                    });
+                    return res;
+                } catch {
+                    toast({
+                        title: "There was a problem uploading this image.",
+                        description: "Make sure the file is PNG or JPEG."
+                    })
+                    setLoading(false);
+                }
+                setLoadingMessage("Posting")
+            } else {
+                return undefined;
+            }
         }
 
-        axios.post
+        const res: any = await uploadImage();
+
+        axios.post('/api/new/post', {
+            title: values.title,
+            content: values.content,
+            threadID: props.thread.id,
+            imgurl: res[0].url,
+        })
+        .then(() => {
+            props.closeFunction();
+            router.refresh();
+            router.replace(`/t/${props.thread.title}/${values.title.split(' ').join('_').toLowerCase()}`)
+            toast({
+                title: "Success.",
+                description: "New post created.",
+            })
+        })
+        .catch((err) => (
+            toast({
+                title: "There was a problem when making this post.",
+                description: "Check your title and try again.",
+            })
+        ))
+        .finally(() => {
+            setLoading(false)
+        })
     }
 
     return(
@@ -85,7 +128,7 @@ export default function NewPostForm(props: any){
                         <FormItem>
                             <FormLabel>Title</FormLabel>
                             <FormControl>
-                                <Input placeholder="example" {...field} />
+                                <Input placeholder="Post title..." {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -105,9 +148,9 @@ export default function NewPostForm(props: any){
                     )}
                 />
                 <FormItem>
-                    <FormLabel htmlFor="image">Image</FormLabel>
+                    <FormLabel htmlFor="image">Image (optional)</FormLabel>
                     <Input onChange={handleChange} id="image" type="file" lang="en"/>
-                    <FormDescription>Image is optional</FormDescription>
+                    {/* <FormDescription>Optional</FormDescription> */}
                 </FormItem>
                 <DialogFooter>
                     <Button className="flex gap-1" disabled={loading} type="submit">
